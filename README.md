@@ -23,7 +23,7 @@ Un projet voué à évoluer au fil de la session.
    - la description
    - (!!!)la visibilité
 
-![Précisions pour le nouveau dépôt"](./rsc/new_repo_from_template.png)
+![Précisions pour le nouveau dépôt"](./rsc/precisions_creation_depot.png)
 
 
 4. **Accéder à ta divergence** :
