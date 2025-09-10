@@ -14,7 +14,7 @@ Un projet voué à évoluer au fil de la session.
    - Une fois sur la page du projet, utilise le bouton **"Use this template"** en haut à droite.
    - Tu vas créer une copie du projet dans ton propre compte GitHub.
       
-   ![utilise le bouton "Use this template"](./rsc/use_template.png)
+   ![utilise le bouton "Use this template"](./rsc/page-daccueil.png)
 
 3. **Précisions** :
    Pour le nouveau dépôt, tu peux / dois modifier :
@@ -23,7 +23,7 @@ Un projet voué à évoluer au fil de la session.
    - la description
    - (!!!)la visibilité
 
-![Précisions pour le nouveau dépôt"](./rsc/use_template.png)
+![Précisions pour le nouveau dépôt"](./rsc/new_repo_from_template.png)
 
 
 4. **Accéder à ta divergence** :
