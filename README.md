@@ -7,8 +7,8 @@ Un projet voué à évoluer au fil de la session.
 ## Étapes pour créer une divergence (fork) sur GitHub :
 
 1. **Accéder au projet du prof** :
-   - Ouvre ton navigateur et va sur [le dépôt du prof](https://github.com/laclassedeyo/un-premier-backend/).
    - Connecte-toi à ton compte GitHub si ce n'est pas déjà fait.
+   - Ouvre ton navigateur et va sur [le dépôt du prof](https://github.com/laclassedeyo/un-premier-backend/), ou :
 
    ![Le projet se trouve dans laclassedeyo](./rsc/cherche_organisation.png)
    ![Le projet se trouve dans laclassedeyo](./rsc/organisations.png)
@@ -23,6 +23,7 @@ Un projet voué à évoluer au fil de la session.
 
 3. **Précisions** :
    Pour le nouveau dépôt, tu peux / dois modifier :
+   - (!!!) l'indicateur des branches à cloner
    - (!!!) le propriétaire
    - le nom du projet
    - la description
