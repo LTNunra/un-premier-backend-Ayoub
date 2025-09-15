@@ -10,11 +10,16 @@ Un projet voué à évoluer au fil de la session.
    - Ouvre ton navigateur et va sur [le dépôt du prof](https://github.com/laclassedeyo/un-premier-backend/).
    - Connecte-toi à ton compte GitHub si ce n'est pas déjà fait.
 
+   ![Le projet se trouve dans laclassedeyo](./rsc/cherche_organisation.png)
+   ![Le projet se trouve dans laclassedeyo](./rsc/organisations.png)
+   ![Le projet se trouve dans laclassedeyo](./rsc/laclassedeyo.png)
+
+
 2. **Créer une divergence** :
    - Une fois sur la page du projet, utilise le bouton **"Use this template"** en haut à droite.
    - Tu vas créer une copie du projet dans ton propre compte GitHub.
       
-   ![utilise le bouton "Use this template"](./rsc/page-daccueil.png)
+   ![utilise le bouton "Use this template"](./rsc/usethistemplate.png)
 
 3. **Précisions** :
    Pour le nouveau dépôt, tu peux / dois modifier :
@@ -23,7 +28,7 @@ Un projet voué à évoluer au fil de la session.
    - la description
    - (!!!)la visibilité
    
-   ![Précisions pour le nouveau dépôt"](./rsc/precisions_creation_depot.png)
+   ![Précisions pour le nouveau dépôt](./rsc/createnewrepo.png)
 
 
 4. **Accéder à la divergence** :
@@ -31,6 +36,12 @@ Un projet voué à évoluer au fil de la session.
    
 5. **(!!!) Ajouter votre enseignant à votre projet**
    
+      ![Ajouter de collaborateur](./rsc/settings.png)
+
+      ![Ajouter votre enseignant](./rsc/recherche_collab.png)
+      
+      ![Confirmation](./rsc/confirm_collab.png)
+      
 6. **Clonez votre projet**
    - N'oublie pas de te déplacer à la racine de ton dépot.
 
