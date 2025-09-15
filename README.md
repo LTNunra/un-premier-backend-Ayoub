@@ -4,7 +4,7 @@
 
 Un projet voué à évoluer au fil de la session.
 
-## Étapes pour créer un fork sur GitHub :
+## Étapes pour créer une divergence (fork) sur GitHub :
 
 1. **Accéder au projet du prof** :
    - Ouvre ton navigateur et va sur [le dépôt du prof](https://github.com/laclassedeyo/un-premier-backend/).
@@ -22,15 +22,21 @@ Un projet voué à évoluer au fil de la session.
    - le nom du projet
    - la description
    - (!!!)la visibilité
+   
+   ![Précisions pour le nouveau dépôt"](./rsc/precisions_creation_depot.png)
 
-![Précisions pour le nouveau dépôt"](./rsc/precisions_creation_depot.png)
 
+4. **Accéder à la divergence** :
+   - Après la création , tu seras redirigé vers la nouvelle copie du projet dans ton espace sur github.
+   
+5. **(!!!) Ajouter votre enseignant à votre projet**
+   
+6. **Clonez votre projet**
+   - N'oublie pas de te déplacer à la racine de ton dépot.
 
-4. **Accéder à ta divergence** :
-   - Après la création , tu seras redirigé vers la nouvelle copie du projet dans ton compte.
-   - Cloner ton dépôt sur ta machine locale
-     ```bash
-     git clone <URL_DU_DEPOT>
-     ```
-   - déplace toi à la racine de ton dépot
-
+7. **Suite** du flux de travail :
+   - Il vous faudra : 
+   - Possiblement créer ou récupérer une branche
+   - Ajouter vos changements à la zone de préparation (stagging area)
+   - Commiter les changements de votre zone de préparation
+   - Pousser vos commits sur Github
