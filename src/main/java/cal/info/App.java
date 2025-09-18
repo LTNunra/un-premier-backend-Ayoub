@@ -3,6 +3,8 @@ package cal.info;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import io.chucknorris.client.ChuckNorrisClient;
+import io.chucknorris.client.Joke;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -24,7 +26,12 @@ public class App
         serveur.createContext("/accueil", new HttpHandler() {
             @Override
             public void handle(HttpExchange echange) throws IOException {
-                String response = "Bienvenue sur la page d'accueil !";
+
+                ChuckNorrisClient clientChuck = new ChuckNorrisClient();
+                // get a random joke and print it
+                Joke joke = clientChuck.getRandomJoke();
+                String response = joke.getValue();
+
                 echange.sendResponseHeaders(200, response.length());
                 OutputStream os = echange.getResponseBody();
                 os.write(response.getBytes());
@@ -33,8 +40,6 @@ public class App
         });
 
         serveur.createContext("/hackathon", new ControleurHackathon());
-
-
 
 
         // Démarrer le serveur
