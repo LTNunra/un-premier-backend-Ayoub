@@ -1,24 +1,37 @@
 package cal.info;
 
-import java.util.List;
-
 public class Etudiant {
     private String nomEtudiant;
-    private String ageEtudiant;
+    private int ageEtudiant;
+    private String programme;
 
-    public void obtenirNomEtudiant(String nomEtudiant) {
+    public Etudiant(String nomEtudiant, int ageEtudiant, String programme) {
+        this.nomEtudiant = nomEtudiant;
+        this.ageEtudiant = ageEtudiant;
+        this.programme = programme;
+    }
+
+    public String getNomEtudiant() {
+        return this.nomEtudiant;
+    }
+
+    public int getAgeEtudiant() {
+        return this.ageEtudiant;
+    }
+
+    public String getProgramme() {
+        return programme;
+    }
+
+    public void setNomEtudiant(String nomEtudiant) {
         this.nomEtudiant = nomEtudiant;
     }
 
-    public void obtenirAgeEtudiant(String ageEtudiant) {
+    public void setAgeEtudiant(int ageEtudiant) {
         this.ageEtudiant = ageEtudiant;
     }
 
-    public void ajouterPreferenceHackathon(Hackathon hackathon) {
-
-    }
-
-    private List<Hackathon> afficherPreferences(){
-        return null;
+    public void setProgramme(String programme) {
+        this.programme = programme;
     }
 }
