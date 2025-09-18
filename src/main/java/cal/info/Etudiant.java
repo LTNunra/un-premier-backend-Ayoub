@@ -1,5 +1,7 @@
 package cal.info;
 
+import java.io.Serializable;
+
 public class Etudiant {
     private String nomEtudiant;
     private int ageEtudiant;
@@ -33,5 +35,14 @@ public class Etudiant {
 
     public void setProgramme(String programme) {
         this.programme = programme;
+    }
+
+    @Override
+    public String toString() {
+        return "On dit bonjour à : {" +
+                "\"nomEtudiant\": \"" + nomEtudiant + "\"" +
+                ", \"ageEtudiant\": " + ageEtudiant +
+                ", \"programme\": \"" + programme + "\"" +
+                "}";
     }
 }

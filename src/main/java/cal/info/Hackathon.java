@@ -1,13 +1,21 @@
 package cal.info;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Hackathon {
 
     private String nomHackathon;
-    private Date dateHackathon;
+    private String dateHackathon;
     private String lieuHackathon;
     private String urlHackathon;
+
+    public Hackathon(String nomHackathon, String dateHackathon, String lieuHackathon, String urlHackathon) {
+        this.nomHackathon = nomHackathon;
+        this.dateHackathon = dateHackathon;
+        this.lieuHackathon = lieuHackathon;
+        this.urlHackathon = urlHackathon;
+    }
 
     public String getNomHackathon() {
         return nomHackathon;
@@ -17,11 +25,11 @@ public class Hackathon {
         this.nomHackathon = nomHackathon;
     }
 
-    public Date getDateHackathon() {
+    public String getDateHackathon() {
         return dateHackathon;
     }
 
-    public void setDateHackathon(Date dateHackathon) {
+    public void setDateHackathon(String dateHackathon) {
         this.dateHackathon = dateHackathon;
     }
 
@@ -39,5 +47,15 @@ public class Hackathon {
 
     public void setUrlHackathon(String urlHackathon) {
         this.urlHackathon = urlHackathon;
+    }
+
+    @Override
+    public String toString() {
+        return "Woa le beau hackathon : {" +
+                "\"nomHackathon\": \"" + nomHackathon + "\"" +
+                ", \"dateHackathon\": \"" + dateHackathon + "\"" +
+                ", \"lieuHackathon\": \"" + lieuHackathon + "\"" +
+                ", \"urlHackathon\": \"" + urlHackathon + "\"" +
+                '}';
     }
 }
