@@ -1,5 +1,6 @@
 package cal.info;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -26,11 +27,11 @@ public class ControleurHackathon implements HttpHandler {
                     String nomHackathon = filtre.split("nom=")[1];
                     rechercheHackathons(echange, nomHackathon);
                 } else {
-                    listeHackathons(echange);
+                    listeHackathonsJackson(echange);
                 }
                 break;
             case "POST":
-                ajouterHackathon(echange);
+                ajouterHackathonJackson(echange);
                 break;
             case "PUT":
                 modifierHackathon(echange);
@@ -42,6 +43,34 @@ public class ControleurHackathon implements HttpHandler {
                 echange.sendResponseHeaders(405, -1); // Method Not Allowed
                 break;
         }
+    }
+
+    private void ajouterHackathonJackson(HttpExchange echange){
+
+        InputStream corpRequete = echange.getRequestBody();
+        InputStreamReader lecteur = new InputStreamReader(corpRequete, StandardCharsets.UTF_8);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Hackathon hackathon = mapper.readValue(lecteur, Hackathon.class);
+
+            gestionHackathon.ajouterHackathon(hackathon);
+
+            String reponse = "Le Hackathon a bien été ajouté";
+            byte[] reponseEncodee = reponse.getBytes(StandardCharsets.UTF_8);
+
+            echange.getResponseHeaders().set("Content-Type", "text/plain; charset=UTF-8");
+            echange.sendResponseHeaders(201, reponseEncodee.length);
+
+            OutputStream os = echange.getResponseBody();
+            os.write(reponseEncodee);
+            os.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     private void ajouterHackathon(HttpExchange echange) throws IOException {
@@ -79,6 +108,28 @@ public class ControleurHackathon implements HttpHandler {
         os.write(reponseEncode);
         os.close();
 
+    }
+
+    private void listeHackathonsJackson(HttpExchange echange) {
+
+        List<Hackathon> hackathons = gestionHackathon.retrouverHackathons();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String reponse = null;
+        try {
+            reponse = mapper.writeValueAsString(hackathons);
+
+            byte[] reponseEncode = reponse.getBytes(StandardCharsets.UTF_8);
+
+            echange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+            echange.sendResponseHeaders(200, reponseEncode.length);
+
+            OutputStream os = echange.getResponseBody();
+            os.write(reponseEncode);
+            os.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

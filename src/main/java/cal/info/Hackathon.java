@@ -10,6 +10,9 @@ public class Hackathon {
     private String lieuHackathon;
     private String urlHackathon;
 
+    public Hackathon() {
+    }
+
     public Hackathon(String nomHackathon, String dateHackathon, String lieuHackathon, String urlHackathon) {
         this.nomHackathon = nomHackathon;
         this.dateHackathon = dateHackathon;
