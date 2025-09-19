@@ -72,7 +72,6 @@ public class ControleurHackathon implements HttpHandler {
         String reponse = gson.toJson(hackathons);
         byte[] reponseEncode = reponse.getBytes(StandardCharsets.UTF_8);
 
-        // Set response headers and send the response
         echange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
         echange.sendResponseHeaders(200, reponseEncode.length);
 
