@@ -1,8 +1,8 @@
 package cal.info;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,17 +17,24 @@ public class ControleurHackathon implements HttpHandler {
 
     @Override
     public void handle(HttpExchange echange) throws IOException {
-        String method = echange.getRequestMethod();
+        try {
+            String method = echange.getRequestMethod();
 
-        switch (method) {
-            case "GET":
+            if ("GET".equalsIgnoreCase(method)) {
                 handleGet(echange);
-                break;
-            case "POST":
+            } else if ("POST".equalsIgnoreCase(method)) {
                 handlePost(echange);
-                break;
-            default:
+            } else {
                 echange.sendResponseHeaders(405, -1); // Method Not Allowed
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            String error = "{\"error\":\"" + ex.getMessage() + "\"}";
+            echange.getResponseHeaders().add("Content-Type", "application/json");
+            echange.sendResponseHeaders(500, error.getBytes().length);
+            try (OutputStream os = echange.getResponseBody()) {
+                os.write(error.getBytes());
+            }
         }
     }
 
@@ -42,6 +49,8 @@ public class ControleurHackathon implements HttpHandler {
 
     private void handlePost(HttpExchange echange) throws IOException {
         InputStream body = echange.getRequestBody();
+
+        // désérialiser JSON vers Hackathon
         Hackathon nouveau = mapper.readValue(body, Hackathon.class);
         hackathons.add(nouveau);
 

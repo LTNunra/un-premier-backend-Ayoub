@@ -1,25 +1,61 @@
 package cal.info;
 
 public class Hackathon {
-    private String nom;
-    private String lieu;
-    private String description;
+
+    private String nomHackathon;
+    private String dateHackathon;
+    private String lieuHackathon;
+    private String urlHackathon;
 
     public Hackathon() {
     }
 
-    public Hackathon(String nom, String lieu, String description) {
-        this.nom = nom;
-        this.lieu = lieu;
-        this.description = description;
+    public Hackathon(String nomHackathon, String dateHackathon, String lieuHackathon, String urlHackathon) {
+        this.nomHackathon = nomHackathon;
+        this.dateHackathon = dateHackathon;
+        this.lieuHackathon = lieuHackathon;
+        this.urlHackathon = urlHackathon;
     }
 
-    public String obtenirNom() { return nom; }
-    public void definirNom(String nom) { this.nom = nom; }
+    public String getNomHackathon() {
+        return nomHackathon;
+    }
 
-    public String obtenirLieu() { return lieu; }
-    public void definirLieu(String lieu) { this.lieu = lieu; }
+    public void setNomHackathon(String nomHackathon) {
+        this.nomHackathon = nomHackathon;
+    }
 
-    public String obtenirDescription() { return description; }
-    public void definirDescription(String description) { this.description = description; }
+    public String getDateHackathon() {
+        return dateHackathon;
+    }
+
+    public void setDateHackathon(String dateHackathon) {
+        this.dateHackathon = dateHackathon;
+    }
+
+    public String getLieuHackathon() {
+        return lieuHackathon;
+    }
+
+    public void setLieuHackathon(String lieuHackathon) {
+        this.lieuHackathon = lieuHackathon;
+    }
+
+    public String getUrlHackathon() {
+        return urlHackathon;
+    }
+
+    public void setUrlHackathon(String urlHackathon) {
+        this.urlHackathon = urlHackathon;
+    }
+
+    @Override
+    public String toString() {
+        return "Woa le beau hackathon : {" +
+                "\"nomHackathon\": \"" + nomHackathon + "\"" +
+                ", \"dateHackathon\": \"" + dateHackathon + "\"" +
+                ", \"lieuHackathon\": \"" + lieuHackathon + "\"" +
+                ", \"urlHackathon\": \"" + urlHackathon + "\"" +
+                '}';
+    }
 }
