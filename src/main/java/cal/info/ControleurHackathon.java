@@ -1,157 +1,55 @@
 package cal.info;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControleurHackathon implements HttpHandler {
 
-    public GestionHackathon gestionHackathon = new GestionHackathon();
+    private static final List<Hackathon> hackathons = new ArrayList<>();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void handle(HttpExchange echange) throws IOException {
-        String typeRequete = echange.getRequestMethod();
+        String method = echange.getRequestMethod();
 
-        switch (typeRequete) {
+        switch (method) {
             case "GET":
-                String filtre = echange.getRequestURI().getQuery();
-                if (filtre != null && filtre.contains("nom=")) {
-                    String nomHackathon = filtre.split("nom=")[1];
-                    rechercheHackathons(echange, nomHackathon);
-                } else {
-                    listeHackathonsJackson(echange);
-                }
+                handleGet(echange);
                 break;
             case "POST":
-                ajouterHackathonJackson(echange);
-                break;
-            case "PUT":
-                modifierHackathon(echange);
-                break;
-            case "DELETE":
-                supprimerHackathon(echange);
+                handlePost(echange);
                 break;
             default:
                 echange.sendResponseHeaders(405, -1); // Method Not Allowed
-                break;
         }
     }
 
-    private void ajouterHackathonJackson(HttpExchange echange){
-
-        InputStream corpRequete = echange.getRequestBody();
-        InputStreamReader lecteur = new InputStreamReader(corpRequete, StandardCharsets.UTF_8);
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            Hackathon hackathon = mapper.readValue(lecteur, Hackathon.class);
-
-            gestionHackathon.ajouterHackathon(hackathon);
-
-            String reponse = "Le Hackathon a bien été ajouté";
-            byte[] reponseEncodee = reponse.getBytes(StandardCharsets.UTF_8);
-
-            echange.getResponseHeaders().set("Content-Type", "text/plain; charset=UTF-8");
-            echange.sendResponseHeaders(201, reponseEncodee.length);
-
-            OutputStream os = echange.getResponseBody();
-            os.write(reponseEncodee);
-            os.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-    }
-
-    private void ajouterHackathon(HttpExchange echange) throws IOException {
-        InputStream corpRequete = echange.getRequestBody();
-        InputStreamReader lecteur = new InputStreamReader(corpRequete, StandardCharsets.UTF_8);
-
-        Gson gson = new Gson();
-        Hackathon hackathonDeserialse = gson.fromJson(lecteur, Hackathon.class);
-
-        gestionHackathon.ajouterHackathon(hackathonDeserialse);
-
-        String reponse = "Le Hackathon a bien été ajouté";
-        byte[] reponseEncodee = reponse.getBytes(StandardCharsets.UTF_8);
-
-        echange.getResponseHeaders().set("Content-Type", "text/plain; charset=UTF-8");
-        echange.sendResponseHeaders(201, reponseEncodee.length);
-
-        OutputStream os = echange.getResponseBody();
-        os.write(reponseEncodee);
-        os.close();
-    }
-
-    private void listeHackathons(HttpExchange echange) throws IOException {
-
-        List<Hackathon> hackathons = gestionHackathon.retrouverHackathons();
-
-        Gson gson = new Gson();
-        String reponse = gson.toJson(hackathons);
-        byte[] reponseEncode = reponse.getBytes(StandardCharsets.UTF_8);
-
-        echange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-        echange.sendResponseHeaders(200, reponseEncode.length);
-
-        OutputStream os = echange.getResponseBody();
-        os.write(reponseEncode);
-        os.close();
-
-    }
-
-    private void listeHackathonsJackson(HttpExchange echange) {
-
-        List<Hackathon> hackathons = gestionHackathon.retrouverHackathons();
-
-        ObjectMapper mapper = new ObjectMapper();
-        String reponse = null;
-        try {
-            reponse = mapper.writeValueAsString(hackathons);
-
-            byte[] reponseEncode = reponse.getBytes(StandardCharsets.UTF_8);
-
-            echange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
-            echange.sendResponseHeaders(200, reponseEncode.length);
-
-            OutputStream os = echange.getResponseBody();
-            os.write(reponseEncode);
-            os.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private void handleGet(HttpExchange echange) throws IOException {
+        String response = mapper.writeValueAsString(hackathons);
+        echange.getResponseHeaders().add("Content-Type", "application/json");
+        echange.sendResponseHeaders(200, response.getBytes().length);
+        try (OutputStream os = echange.getResponseBody()) {
+            os.write(response.getBytes());
         }
     }
 
+    private void handlePost(HttpExchange echange) throws IOException {
+        InputStream body = echange.getRequestBody();
+        Hackathon nouveau = mapper.readValue(body, Hackathon.class);
+        hackathons.add(nouveau);
 
-    private void rechercheHackathons(HttpExchange echange, String motHackathon) throws IOException {
-
-        String response = "Well done";
-        echange.sendResponseHeaders(200, response.length());
-        OutputStream os = echange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+        String response = mapper.writeValueAsString(nouveau);
+        echange.getResponseHeaders().add("Content-Type", "application/json");
+        echange.sendResponseHeaders(201, response.getBytes().length);
+        try (OutputStream os = echange.getResponseBody()) {
+            os.write(response.getBytes());
+        }
     }
-
-
-
-
-
-    private void modifierHackathon(HttpExchange echange) {
-
-    }
-
-    private void supprimerHackathon(HttpExchange echange) {
-
-    }
-
 }

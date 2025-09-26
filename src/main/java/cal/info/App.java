@@ -1,53 +1,18 @@
 package cal.info;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import io.chucknorris.client.ChuckNorrisClient;
-import io.chucknorris.client.Joke;
-
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-public class App 
-{
-    public static void main( String[] args ) throws IOException {
-        System.out.println( "Hello World!" );
-
-        // Création du serveur HTTP qui écoutera sur le port 8000
+public class App {
+    public static void main(String[] args) throws IOException {
         HttpServer serveur = HttpServer.create(new InetSocketAddress(8000), 0);
 
-        // Première route "/accueil" :
-        serveur.createContext("/accueil", new HttpHandler() {
-            @Override
-            public void handle(HttpExchange echange) throws IOException {
+        // Route pour les hackathons
+        serveur.createContext("/hackathons", new ControleurHackathon());
 
-                ChuckNorrisClient clientChuck = new ChuckNorrisClient();
-                // get a random joke and print it
-                Joke joke = clientChuck.getRandomJoke();
-                String response = joke.getValue();
-
-                echange.sendResponseHeaders(200, response.length());
-                OutputStream os = echange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
-            }
-        });
-
-        serveur.createContext("/hackathon", new ControleurHackathon());
-
-
-        // Démarrer le serveur
-        serveur.setExecutor(null); // Créer un exécuteur par défaut
+        serveur.setExecutor(null);
+        System.out.println("Serveur lancé sur http://localhost:8000");
         serveur.start();
-
-        System.out.println("Serveur démarré et en écoute sur le port 8000");
-
-
-
     }
-
-
-
 }
